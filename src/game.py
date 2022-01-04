@@ -1,10 +1,13 @@
 import pygame
 from pygame.locals import *
 from display import Display
-from Platform import GamePlatform
+import GamePlatform
 
 class Game:
     """"""
     def __init__(self, width, height):
         """"""
-        self.__platform = GamePlatform() 
+        self.__platform = GamePlatform.GamePlatform(height, width, 2, 3)
+        self.__display = Display(self.__platform.getCaseSize()*self.__platform.getHeight(), 
+            self.__platform.getCaseSize()*self.__platform.getWidth()) 
+        

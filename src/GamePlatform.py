@@ -9,6 +9,7 @@ class GamePlatform:
         self.__WIDTH = self.__SizeIsCorrect(width)
         self.__MIN = min
         self.__MAX = max 
+        self.__sizeCase = 20
         self.__platform = self.__makePlatform(self.__WIDTH, self.__HEIGHT)
 
     def isRange(self, case):
@@ -49,3 +50,13 @@ class GamePlatform:
                     if cases != self.__MIN: self.__platform[r][c] = 1
                 else: self.__platform[r][c] = 0
 
+    def getCaseSize(self):
+        return self.__sizeCase
+
+    def getWidth(self):
+        """"""
+        return self.__WIDTH
+
+    def getHeight(self):
+        """"""
+        return self.__HEIGHT
