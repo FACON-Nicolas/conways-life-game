@@ -1,10 +1,14 @@
+from typing import List
+
 class platform:
     """"""
-    def __init__(self, height, width):
+    def __init__(self, height, width, min, max):
         self.__MAX_SIZE = 40
         self.__MIN_SIZE = 10
         self.__HEIGHT = self.__SizeIsCorrect(height)
         self.__WIDTH = self.__SizeIsCorrect(width)
+        self.__MIN = min
+        self.__MAX = max 
         self.__platform = self.__makePlatform(self.__WIDTH, self.__HEIGHT)
 
     def isRange(self, case):
@@ -24,7 +28,7 @@ class platform:
         """"""
         return [[0 for _ in range(w)]for _ in range(h)]
 
-    def checkCase(self, pos: tuple):
+    def checkCase(self, pos: tuple, platform: List[List[int]]):
         """"""
         cases = 0
         r,c = pos
@@ -32,7 +36,16 @@ class platform:
             for c_dir in range(-1,2):
                 if (r_dir, c_dir) != (0,0):
                     if self.isRange(r+r_dir, c+c_dir):
-                        if self.__platform[r+r_dir][c+c_dir]:
+                        if platform[r+r_dir][c+c_dir]:
                             cases += 1
         return cases
+
+    def modifyPlatform(self):
+        copy = self.CopyPlatform()
+        for r in range(self.__platform.__len__()):
+            for c in range(self.__platform[0].__len__()):
+                cases = self.checkCase((l,c), copy)
+                if cases in range(self.__MIN,self.__MAX):
+                    if cases != self.__MIN: self.__platform[r][c] = 1
+                else: self.__platform[r][c] = 0
 
