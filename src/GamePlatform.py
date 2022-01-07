@@ -3,10 +3,11 @@ from typing import List
 class GamePlatform:
     """"""
     def __init__(self, height, width, min, max):
-        self.__MAX_SIZE = 40
+        self.__MAX_HEIGHT = 40
+        self.__MAX_WIDTH = 80
         self.__MIN_SIZE = 10
-        self.__HEIGHT = self.__SizeIsCorrect(height)
-        self.__WIDTH = self.__SizeIsCorrect(width)
+        self.__HEIGHT = self.__SizeIsCorrect(height, self.__MAX_HEIGHT)
+        self.__WIDTH = self.__SizeIsCorrect(width, self.__MAX_WIDTH)
         self.__MIN = min
         self.__MAX = max 
         self.__sizeCase = 20
@@ -16,10 +17,10 @@ class GamePlatform:
         l,c = case
         return l in range(self.__platform.__len__()) and c in range(self.__platform[0].__len__())
 
-    def __SizeIsCorrect(self, size):
+    def __SizeIsCorrect(self, size, max):
         assert(size >= self.__MIN_SIZE)
-        if size in range(self.__MIN_SIZE, self.__MAX_SIZE): return size
-        return self.__MAX_SIZE
+        if size in range(self.__MIN_SIZE, max): return size
+        return max
 
     def CopyPlatform(self):
         """"""
