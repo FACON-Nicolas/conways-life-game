@@ -46,7 +46,7 @@ class GamePlatform:
         copy = self.CopyPlatform()
         for r in range(self.__platform.__len__()):
             for c in range(self.__platform[0].__len__()):
-                cases = self.checkCase((l,c), copy)
+                cases = self.checkCase((r,c), copy)
                 if cases in range(self.__MIN,self.__MAX+1):
                     if cases != self.__MIN: self.__platform[r][c] = 1
                 else: self.__platform[r][c] = 0
