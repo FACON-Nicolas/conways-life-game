@@ -18,13 +18,16 @@ class Game:
         self.__platform = GamePlatform.GamePlatform(height, width, 2, 3)
         self.__display = Display(self.__platform.getCaseSize()*self.__platform.getWidth(), 
             self.__platform.getCaseSize()*self.__platform.getHeight()) 
+        self.__x = 0
+        self.__y = 0
 
     def run(self):
         """"""
         while self.__isRunning:
             self.__event()
             self.__controls()
-            if self.__isLaunched: self.launched()
+            self.launched()
+            self.isClicked()
             self.__display.show_screen(self.__platform.getPlatform())
             pygame.display.flip()
 
@@ -36,7 +39,7 @@ class Game:
             if event.type == QUIT: self.__isRunning=False; pygame.quit(); sys.exit()
             elif event.type == KEYDOWN and event.key not in self.__Touches: self.__Touches.append(event.key)
             elif event.type == KEYUP and event.key in self.__Touches: self.__Touches.remove(event.key)
-            elif event.type == MOUSEBUTTONDOWN and not self.__isClicked: self.__isClicked = True
+            elif event.type == MOUSEBUTTONDOWN and not self.__isClicked : self.__isClicked = True
             elif event.type == MOUSEBUTTONUP and self.__isClicked: self.__isClicked = False
 
     def __controls(self):
@@ -52,7 +55,28 @@ class Game:
                     self.__platform.previousPlatform()
 
     def launched(self):
-        self.__platform.modifyPlatform()
+        if self.__isLaunched:
+            self.__platform.modifyPlatform()
+
+    def mouse_pos_is_okay(self,x,y):
+        if y > 100:
+            l,c = pygame.mouse.get_pos()
+            c,l = c//self.__platform.getCaseSize(),  (l-100)//self.__platform.getCaseSize()
+            if x != c or y != l:
+                self.invert_case(l,c)
+        return c,l
+                 
+    def invert_case(self, l,c):
+        if self.__platform.getPlatform()[l][c] == 0: self.__platform.getPlatform()[l][c] = 1
+        elif self.__platform.getPlatform()[l][c] ==1: self.__platform.getPlatform()[l][c] = 0
+
+    def isClicked(self):
+        if self.__isClicked:
+            x,y = pygame.mouse.get_pos()
+            x,y = x//20, (y-100)//20
+            if x != self.__x or y != self.__y:
+                self.invert_case(y,x)
+                self.__x, self.__y = x,y
 
 g = Game(80,40)
 g.run()

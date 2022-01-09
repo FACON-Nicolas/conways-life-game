@@ -15,7 +15,7 @@ class GamePlatform:
         self.__sizeCase = 20
         self.__state = 0
         self.__platform = self.__makePlatform(self.__WIDTH, self.__HEIGHT)
-        self.__originalPlatform = self.CopyPlatform()
+        self.__allPlatform = []
 
     def isRange(self, case):
         l,c = case
@@ -32,7 +32,7 @@ class GamePlatform:
 
     def __makePlatform(self, w, h):
         """"""
-        return [[randint(0,1) for i in range(w)]for j in range(h)]
+        return [[0 for i in range(w)]for j in range(h)]
 
     def checkCase(self, pos: tuple, platform: List[List[int]]):
         """"""
@@ -50,7 +50,7 @@ class GamePlatform:
         """"""
         if platform==[]: platform=self.__platform
         copy = self.CopyPlatform()
-        self.__state += 1
+        self.__allPlatform.append(copy)
         for r in range(platform.__len__()):
             for c in range(platform[0].__len__()):
                 cases = self.checkCase((r,c), copy)
@@ -59,19 +59,9 @@ class GamePlatform:
                 else: platform[r][c] = 0
 
     def previousPlatform(self):
-        copy = self.CopyPlatform(self.__originalPlatform)
-        i = 0
-        if self.__state > 0:
-            self.__state -=1
-            while i != self.__state:
-                self.modifyPlatform(copy)
-                i += 1
-                self.__state -= 1
-                print(i, self.__state)
-        self.__platform = self.CopyPlatform(copy)
-
-
-
+        """"""
+        if self.__allPlatform.__len__() > 0:
+            self.__platform = self.CopyPlatform(self.__allPlatform.pop())
 
     def getCaseSize(self):
         """"""
@@ -88,7 +78,3 @@ class GamePlatform:
     def getPlatform(self):
         """"""
         return self.__platform
-
-    def getIsPlayed(self):
-        """"""
-        return self.__isPlayed
