@@ -1,5 +1,6 @@
 import sys
 import pygame
+from pygame import display
 import GamePlatform
 from pygame.locals import *
 from display import Display
@@ -23,13 +24,14 @@ class Game:
         while self.__isRunning:
             self.__event()
             self.__controls()
+            if self.__isLaunched: self.launched()
             self.__display.show_screen(self.__platform.getPlatform())
             pygame.display.flip()
 
     def __event(self):
         """"""
-        self.__IsKeyDown = len(self.__Touches) == 0 
         self.__gameClock.tick(60)
+        self.__IsKeyDown = not len(self.__Touches) == 0 
         for event in pygame.event.get():
             if event.type == QUIT: self.__isRunning=False; pygame.quit(); sys.exit()
             elif event.type == KEYDOWN and event.key not in self.__Touches: self.__Touches.append(event.key)
@@ -40,10 +42,17 @@ class Game:
     def __controls(self):
         """"""
         if not (self.__IsKeyDown):
+            if self.__Touches==[K_SPACE]: 
+                print('uhn')
+                self.__isLaunched = not self.__isLaunched
             if not self.__isLaunched:
-                if self.__Touches==[K_SPACE]:pass
-                elif self.__Touches==[K_RIGHT]:pass
-            elif self.__Touches==[K_ESCAPE]:pass
+                if self.__Touches==[K_RIGHT]:
+                    self.__platform.modifyPlatform()
+                elif self.__Touches==[K_LEFT]:
+                    self.__platform.previousPlatform()
+
+    def launched(self):
+        self.__platform.modifyPlatform()
 
 g = Game(80,40)
 g.run()
