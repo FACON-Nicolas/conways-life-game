@@ -61,3 +61,6 @@ class GamePlatform:
     def getHeight(self):
         """"""
         return self.__HEIGHT
+
+    def getPlatform(self):
+        return self.__platform

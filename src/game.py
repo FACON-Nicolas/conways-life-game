@@ -23,6 +23,8 @@ class Game:
         while self.__isRunning:
             self.__event()
             self.__controls()
+            self.__display.show_platform(self.__platform.getPlatform())
+            pygame.display.flip()
 
     def __event(self):
         """"""

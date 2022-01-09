@@ -5,21 +5,21 @@ class Display:
     """"""
     def __init__(self, width, height):
         """"""
-        self.__WIDTH = width
-        self.__HEIGHT = height
+        self.__WIDTH = width+1
+        self.__HEIGHT = height+1
         self.__surface = pygame.display.set_mode((self.__WIDTH, self.__HEIGHT))
-        self.__surface_name = pygame.display.set_caption('Day-Life')
+        self.__surface_name = pygame.display.set_caption('Life-game')
         self.__sizeCase = 20
 
     def show_platform(self, platform: List[List[int]]):
         """"""
         gray, white, black = (127,127,127), (255,255,255), (0,0,0) 
         self.__surface.fill(gray)
-        for raw in platform.__len__():
-            for columns in platform[0].__len__():
+        for raw in range(platform.__len__()):
+            for columns in range(platform[0].__len__()):
                 if (platform[raw][columns] == 0):
                     pygame.draw.rect(self.__surface, white, pygame.Rect(
-                        columns*self.__sizeCase, raw*self.__sizeCase, 
+                        columns*self.__sizeCase+1, raw*self.__sizeCase+1, 
                         self.__sizeCase-1, self.__sizeCase-1))
 
                 elif (platform[raw][columns] == 1):
