@@ -28,7 +28,7 @@ class GamePlatform:
 
     def __makePlatform(self, w, h):
         """"""
-        return [[0 for _ in range(w)]for _ in range(h)]
+        return [[0 if j != i else 1 for i in range(w)]for j in range(h)]
 
     def checkCase(self, pos: tuple, platform: List[List[int]]):
         """"""
@@ -43,6 +43,7 @@ class GamePlatform:
         return cases
 
     def modifyPlatform(self):
+        """"""
         copy = self.CopyPlatform()
         for r in range(self.__platform.__len__()):
             for c in range(self.__platform[0].__len__()):
@@ -52,6 +53,7 @@ class GamePlatform:
                 else: self.__platform[r][c] = 0
 
     def getCaseSize(self):
+        """"""
         return self.__sizeCase
 
     def getWidth(self):
@@ -63,4 +65,5 @@ class GamePlatform:
         return self.__HEIGHT
 
     def getPlatform(self):
+        """"""
         return self.__platform
