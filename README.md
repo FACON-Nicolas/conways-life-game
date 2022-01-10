@@ -1,7 +1,7 @@
 # life-game
 
 ## About the game  :
-<p> the life game is a cellular automate, the cases reprensents cells and they can change color in terms of the cases closes</p>
+<p> the life game is a cellular automate, the cases reprensent cells and they can change color in terms of the cases closes</p>
 
 ## How to install the game : 
  + install python 3.7
