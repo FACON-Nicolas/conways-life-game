@@ -1,9 +1,11 @@
 import sys
 import pygame
-from pygame import display
+from pygame import mouse
 import GamePlatform
 from pygame.locals import *
+from UI_game import UI
 from display import Display
+from pygame_gui import UI_BUTTON_PRESSED
 
 class Game:
     """"""
@@ -20,7 +22,8 @@ class Game:
             self.__platform.getCaseSize()*self.__platform.getHeight()) 
         self.__x = 0
         self.__y = 0
-        self.__tick = 100
+        self.__tick = 100        
+        self.__UI = UI(self.__display.getWidth())
 
     def run(self):
         """"""
@@ -28,7 +31,7 @@ class Game:
             self.__event()
             self.__controls()
             self.launched()
-            self.__display.show_screen(self.__platform.getPlatform(), self.__platform.getLastPlatform())
+            self.__display.show_screen(self.__platform.getPlatform())
             self.isClicked()
             pygame.display.flip()
 
@@ -41,8 +44,11 @@ class Game:
             if event.type == QUIT: self.__isRunning=False; pygame.quit(); sys.exit()
             elif event.type == KEYDOWN and event.key not in self.__Touches: self.__Touches.append(event.key)
             elif event.type == KEYUP and event.key in self.__Touches: self.__Touches.remove(event.key)
-            elif event.type == MOUSEBUTTONDOWN and not self.__isClicked : self.__isClicked = True
+            elif event.type == MOUSEBUTTONDOWN and not self.__isClicked and mouse.get_pos()[1]>100: self.__isClicked = True
             elif event.type == MOUSEBUTTONUP and self.__isClicked: self.__isClicked = False; self.__x, self.__y = -20,-20
+            if event.type == USEREVENT: self.buttonClicked(event)
+                
+            self.__UI.manager.process_events(event)
 
     def __controls(self):
         """"""
@@ -78,7 +84,9 @@ class Game:
                 self.__platform.getPlatform()[l][c] = 0
         except: pass
 
-    def isClicked(self):
+    def isClicked(self, time=0.01):
+        self.__UI.manager.update(time)
+        self.__UI.manager.draw_ui(self.__display.getSurface())
         if self.__isClicked:
             x,y = pygame.mouse.get_pos()
             if y > 100:
@@ -86,6 +94,18 @@ class Game:
                 if x != self.__x or y != self.__y:
                     self.invert_case(y,x)
                     self.__x, self.__y = x,y
+
+    def buttonClicked(self, event):
+        if event.user_type == UI_BUTTON_PRESSED:
+            if not self.__isLaunched:
+                if event.ui_element == self.__UI.last_btn: self.__platform.previousPlatform()
+                elif event.ui_element == self.__UI.next_step_btn: self.__platform.modifyPlatform()
+            if event.ui_element == self.__UI.pause_btn: self.__isLaunched = not self.__isLaunched
+            if event.ui_element == self.__UI.reset_btn: self.__init__(self.__platform.getWidth(), self.__platform.getHeight()) 
+            elif event.ui_element == self.__UI.random_btn: 
+                self.__isLaunched = False
+                self.__platform.allPlatform = [self.__platform.makePlatform(self.__platform.getWidth(), self.__platform.getHeight())]
+                self.__platform.randomPlatform(self.__platform.getWidth(), self.__platform.getHeight())
 
 g = Game(80,40)
 g.run()

@@ -14,12 +14,12 @@ class GamePlatform:
         self.__MAX = max 
         self.__sizeCase = 20
         self.__state = 0
-        self.__platform = self.__makePlatform(self.__WIDTH, self.__HEIGHT)
+        self.platform = self.makePlatform(self.__WIDTH, self.__HEIGHT)
         self.allPlatform = []
 
     def isRange(self, case):
         l,c = case
-        return l in range(self.__platform.__len__()) and c in range(self.__platform[0].__len__())
+        return l in range(self.platform.__len__()) and c in range(self.platform[0].__len__())
 
     def __SizeIsCorrect(self, size, max):
         assert(size >= self.__MIN_SIZE)
@@ -28,9 +28,9 @@ class GamePlatform:
 
     def CopyPlatform(self, platform=[]):
         """"""
-        return [i.copy() for i in self.__platform] if platform == [] else [i.copy() for i in platform]
+        return [i.copy() for i in self.platform] if platform == [] else [i.copy() for i in platform]
 
-    def __makePlatform(self, w, h, v=0):
+    def makePlatform(self, w, h, v=0):
         """"""
         return [[v for i in range(w)]for j in range(h)]
 
@@ -46,10 +46,9 @@ class GamePlatform:
                             cases += 1
         return cases
 
-    #voir pour optimiser ici
     def modifyPlatform(self,  platform=[]):
         """"""
-        if platform==[]: platform=self.__platform
+        if platform==[]: platform=self.platform
         copy = self.CopyPlatform()
         self.allPlatform.append(copy)
         for r in range(platform.__len__()):
@@ -58,13 +57,12 @@ class GamePlatform:
                 if cases in range(self.__MIN,self.__MAX+1):
                     if cases == 3: 
                         platform[r][c] = 1
-
                 else: platform[r][c] = 0
 
     def previousPlatform(self):
         """"""
         if self.allPlatform.__len__() > 0:
-            self.__platform = self.CopyPlatform(self.allPlatform.pop())
+            self.platform = self.CopyPlatform(self.allPlatform.pop())
 
     def getCaseSize(self):
         """"""
@@ -80,12 +78,13 @@ class GamePlatform:
 
     def getPlatform(self):
         """"""
-        return self.__platform
+        return self.platform
 
     def getLastPlatform(self):
         """"""
         return self.CopyPlatform(self.allPlatform[len(self.allPlatform)-1]) \
-        if len(self.allPlatform) > 0 else self.__makePlatform(self.getWidth(), self.getHeight(), 1)
+        if len(self.allPlatform) > 0 else self.makePlatform(self.getWidth(), self.getHeight(), 1)
 
     def randomPlatform(self,w,h):
-        return [[randint(0,1) for i in range(w)]for j in range(h)]
+        self.allPlatform.append(self.CopyPlatform(self.platform))
+        self.platform =  self.CopyPlatform([[randint(0,1) for i in range(w)]for j in range(h)])
