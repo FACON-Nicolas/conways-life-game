@@ -30,6 +30,8 @@ The rules of the conway's game of life are very easy to understand, the game is 
 * **[Install](#Install)**
 * **[Inputs](#Inputs)**
 
+#
+
 # Developers
 
  * **[FACON Nicolas](www.github.com/FACON-Nicolas)** : creator of the project
