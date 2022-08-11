@@ -17,11 +17,11 @@ This repository contains a conways game of life developped in python, but curren
 
 The conway's game of life is a cellular automate made by John Horton Conway in 1970. It's a complex game simulation dispite the easy rules.
 
-The rules of the conway's game of life are very easy to understand, the game is composed by a grid of tiles called cells, each cells cans to have 2 differents states, dead or alive, and their state depend by the neighbors:
+The rules of the conway's game of life are very easy to understand, the game is composed by a grid of tiles called cells, cells can have 2 differents states, dead or alive, and their state depend by the neighbors:
 
 - **2 neighbors**: the cells' state doesn't change.
-- **3 neighbors**: the cell's state become / stay alive
-- **others**: the cell's state become / stay dead
+- **3 neighbors**: the cells' state becomes / stay alive
+- **others**: the cells' state becomes / stays dead
 
 ![](https://www.researchgate.net/publication/339605473/figure/fig5/AS:869062565437443@1584212070801/Rules-of-Conways-Game-of-Life.png)
 
