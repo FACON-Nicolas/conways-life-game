@@ -1,5 +1,12 @@
 # conway's game of life
 
+![](https://img.shields.io/badge/Release-v1.0-blueviolet)
+![](https://img.shields.io/badge/Language-python-005255)
+![](https://img.shields.io/badge/Libraries-pygame-00cfff)
+![](https://img.shields.io/badge/Libraries-pygame_gui-00cfff)
+![](https://img.shields.io/badge/Size-33.2Ko-f12222)
+![](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)
+
 This repository contains a conways game of life developped in python, but currently the project is not actually optimized.
 
 ![](https://github.com/FACON-Nicolas/FACON-Nicolas/raw/main/resources/conways-py.gif)
