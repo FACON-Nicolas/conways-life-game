@@ -62,8 +62,10 @@ The rules of the conway's game of life are very easy to understand, the game is 
     ```sh
     #if python is not installed yet.
     sudo apt install python3.8
+
     #if pygame is not installed yet.
     pip install pygame
+
     #if pygame_gui is not installed yet.
     pip install pygame_gui
     ```
@@ -76,7 +78,7 @@ Write this in your terminal (or your Git Bash terminal).
 
 ```sh
 git clone https://github.com/FACON-Nicolas/conways-life-game
-cd Tetris/
+cd conways-life-game
 #python3 or py on windows
 python3 src/game.py
 ```
